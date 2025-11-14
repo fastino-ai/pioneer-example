@@ -14,14 +14,14 @@ This project showcases how to:
 - **Create a clean, modern UI** for chat interactions
 - **Automatically ingest conversations** for continuous learning
 
-## ✨ Features
+## Features
 
-- 🧠 **Contextual Memory** - Remembers user preferences and past conversations
-- 🎯 **Personalized Responses** - Adapts to user communication style
-- 📚 **Relevant Context Retrieval** - Shows what context was used for each response
-- 👤 **User Profile Summaries** - Displays learned information about the user
+- **Contextual Memory** - Remembers user preferences and past conversations
+- **Personalized Responses** - Adapts to user communication style
+- **Relevant Context Retrieval** - Shows what context was used for each response
+- **User Profile Summaries** - Displays learned information about the user
 
-## 📋 Prerequisites
+## Prerequisites
 
 Before you begin, you'll need:
 
@@ -30,7 +30,7 @@ Before you begin, you'll need:
 3. **Pioneer API Key** - Get one at [https://fastino.ai](https://fastino.ai)
 4. **OpenAI API Key** - Get one at [https://platform.openai.com/api-keys](https://platform.openai.com/api-keys)
 
-## 🚀 Quick Start
+## Quick Start
 
 ### 1. Clone the Repository
 
@@ -111,7 +111,7 @@ Navigate to `http://localhost:3000`
 
 You'll see a registration screen. Enter your email (use the same email as your Pioneer account) and click "Start Chatting"!
 
-## 📚 How It Works
+## How It Works
 
 ### 1. **User Registration**
 When you first open the app, you'll see a registration screen where you enter your email. This calls Pioneer's `/register` endpoint:
@@ -161,7 +161,7 @@ POST /ingest
 
 This creates a continuous learning loop!
 
-## 🛠️ API Endpoints
+## API Endpoints
 
 ### Backend API
 
@@ -185,7 +185,7 @@ This creates a continuous learning loop!
 
 - **GET /health** - Health check
 
-## 🎨 Customization
+## Customization
 
 ### Changing the AI Model
 
@@ -229,7 +229,7 @@ The frontend is built with React and uses CSS for styling. Edit:
 - `frontend/src/App.jsx` - Main component logic
 - `frontend/src/App.css` - Styling
 
-## 📖 Learn More
+## Learn More
 
 ### Pioneer API Documentation
 - [Quick Start Guide](https://fastino.ai/docs/overview)
@@ -240,14 +240,14 @@ The frontend is built with React and uses CSS for styling. Edit:
 3. **Tool-Augmented Agent** - Use `/query` for complex questions
 4. **Continuous Learning** - Ingest conversations for improvement
 
-## 🔒 Privacy & Security
+## Privacy & Security
 
 - All API keys should be stored in `.env` (never commit to git)
 - Pioneer automatically anonymizes PII using GLiNER-2
 - User data is isolated by `user_id`
 - Frontend runs on your local machine
 
-## 🤝 Contributing
+## Contributing
 
 This is an open-source example project. Feel free to:
 - Fork and modify for your use case
@@ -256,11 +256,11 @@ This is an open-source example project. Feel free to:
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
-## 📄 License
+## License
 
 Apache-2.0 License - see [LICENSE](LICENSE) file for details
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - [Fastino Pioneer API](https://fastino.ai) - Personalization infrastructure
 - [OpenAI](https://openai.com) - GPT-4o language model
