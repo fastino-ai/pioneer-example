@@ -1,8 +1,10 @@
-# 🚀 Pioneer + OpenAI Chat Example
+# Pioneer + OpenAI Chat Example
 
 A simple, open-source example demonstrating how to build a personalized AI chat application using [Fastino's Pioneer Personalization API](https://api.fastino.ai) with OpenAI's GPT-4o.
 
-## 🎯 What This Does
+![Pioneer Chat Interface](docs/images/screenshot.png)
+
+## What This Does
 
 This project showcases how to:
 
