@@ -1,6 +1,6 @@
 # Pioneer + OpenAI Chat Example
 
-A simple, open-source example demonstrating how to build a personalized AI chat application using [Fastino's Pioneer Personalization API](https://api.fastino.ai) with OpenAI's GPT-4o.
+A simple, open-source example demonstrating how to build a personalized AI chat application using [Fastino's Pioneer Personalization API](https://fastino.ai) with OpenAI's GPT-4o.
 
 ![Pioneer Chat Interface](docs/images/screenshot.png)
 
@@ -20,28 +20,6 @@ This project showcases how to:
 - 🎯 **Personalized Responses** - Adapts to user communication style
 - 📚 **Relevant Context Retrieval** - Shows what context was used for each response
 - 👤 **User Profile Summaries** - Displays learned information about the user
-- 🔒 **Privacy-First** - All data automatically anonymized via GLiNER-2
-- 💬 **Beautiful UI** - Modern, responsive chat interface
-
-## 🏗️ Architecture
-
-```
-┌─────────────┐
-│   React UI  │
-└──────┬──────┘
-       │
-       ├─────────────────┐
-       │                 │
-┌──────▼──────┐   ┌─────▼─────┐
-│   FastAPI   │   │  Pioneer  │
-│   Backend   │──▶│    API    │
-└──────┬──────┘   └───────────┘
-       │
-┌──────▼──────┐
-│   OpenAI    │
-│   GPT-4o    │
-└─────────────┘
-```
 
 ## 📋 Prerequisites
 
@@ -49,7 +27,7 @@ Before you begin, you'll need:
 
 1. **Python 3.9+** installed
 2. **Node.js 18+** and npm installed
-3. **Pioneer API Key** - Get one at [https://api.fastino.ai](https://api.fastino.ai)
+3. **Pioneer API Key** - Get one at [https://fastino.ai](https://fastino.ai)
 4. **OpenAI API Key** - Get one at [https://platform.openai.com/api-keys](https://platform.openai.com/api-keys)
 
 ## 🚀 Quick Start
@@ -254,21 +232,7 @@ The frontend is built with React and uses CSS for styling. Edit:
 ## 📖 Learn More
 
 ### Pioneer API Documentation
-- [Quick Start Guide](https://api.fastino.ai/docs/quick-start)
-- [API Reference](https://api.fastino.ai/docs/api-reference)
-- [Integration Patterns](https://api.fastino.ai/docs/integration-patterns)
-
-### Key Concepts
-
-**User World Model**: Pioneer builds a comprehensive understanding of each user through multi-stage processing:
-- Stage 1: Social profile scraping
-- Stage 2: Profile summarization
-- Stage 3: Agentic search over data
-
-**Memory Types**:
-- `memory` - Extracted facts from conversations and documents
-- `stage3` - Q&A pairs from agentic search
-- Both are searchable via the `/chunks` endpoint
+- [Quick Start Guide](https://fastino.ai/docs/overview)
 
 **Personalization Patterns**:
 1. **System Prompt Enhancement** - Add user summary to every session
@@ -283,30 +247,6 @@ The frontend is built with React and uses CSS for styling. Edit:
 - User data is isolated by `user_id`
 - Frontend runs on your local machine
 
-## 🐛 Troubleshooting
-
-### Backend won't start
-- Check that Python 3.9+ is installed: `python --version`
-- Ensure all dependencies are installed: `pip install -r requirements.txt`
-- Verify your API keys in `.env`
-
-### Frontend won't start
-- Check that Node.js 18+ is installed: `node --version`
-- Ensure dependencies are installed: `cd frontend && npm install`
-- Try deleting `node_modules` and reinstalling: `rm -rf node_modules && npm install`
-
-### API Errors
-- **401 Unauthorized**: Check your API keys in `.env`
-- **Rate Limit**: Pioneer API may have rate limits (check docs)
-- **Network Error**: Ensure backend is running on port 8000
-
-### No Personalization
-- Personalization improves over time as more data is ingested
-- Try having a few conversations about your preferences
-- Check the context chunks being retrieved (click the expand icon)
-
-See [SETUP.md](SETUP.md) for detailed troubleshooting steps.
-
 ## 🤝 Contributing
 
 This is an open-source example project. Feel free to:
@@ -318,14 +258,13 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 ## 📄 License
 
-MIT License - see [LICENSE](LICENSE) file for details
+Apache-2.0 License - see [LICENSE](LICENSE) file for details
 
 ## 🙏 Acknowledgments
 
-- [Fastino Pioneer API](https://api.fastino.ai) - Personalization infrastructure
+- [Fastino Pioneer API](https://fastino.ai) - Personalization infrastructure
 - [OpenAI](https://openai.com) - GPT-4o language model
-- Built with FastAPI and React
 
 ---
 
-**Questions?** Check out the [Pioneer Documentation](https://api.fastino.ai) or open an issue!
+**Questions?** Check out the [Pioneer Documentation](https://fastino.ai) or open an issue!
