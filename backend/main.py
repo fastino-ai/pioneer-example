@@ -183,6 +183,62 @@ async def ingest_conversation(user_id: str, messages: List[Dict]):
         except Exception as e:
             print(f"[ERROR] Exception ingesting conversation: {e}")
 
+async def query_user_knowledge(user_id: str, question: str, use_cache: bool = True) -> Optional[str]:
+    """
+    Query the Pioneer API to ask questions about the user's knowledge base.
+    This allows the agent to ask specific questions and get detailed answers
+    about the user's context, relationships, preferences, etc.
+    
+    Args:
+        user_id: The user's ID
+        question: The question to ask about the user
+        use_cache: Whether to use cached results (default: True)
+        
+    Returns:
+        The answer to the question, or None if the query failed
+    """
+    async with httpx.AsyncClient() as client:
+        try:
+            response = await client.post(
+                f"{PIONEER_BASE_URL}/query",
+                headers=get_pioneer_headers(),
+                json={
+                    "user_id": user_id,
+                    "question": question,
+                    "use_cache": use_cache
+                },
+                timeout=180.0
+            )
+            
+            if response.status_code == 200:
+                data = response.json()
+                return data.get("answer")
+            else:
+                print(f"[ERROR] Failed to query user knowledge. Status: {response.status_code}, Response: {response.text}")
+                return None
+        except Exception as e:
+            print(f"[ERROR] Exception querying user knowledge: {e}")
+            return None
+
+# Tool definitions for OpenAI function calling
+QUERY_TOOL_DEFINITION = {
+    "type": "function",
+    "function": {
+        "name": "query_user_knowledge",
+        "description": "Query the user's knowledge base to ask specific questions about their preferences, relationships, professional network, communication patterns, and other contextual information. Use this only when you need detailed information about the user that may not be in the general profile summary or messages",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "question": {
+                    "type": "string",
+                    "description": "A specific question to ask about the user. Examples: 'Who are the most important people in the user's professional network?', 'What are the user's communication preferences?', 'What topics does the user discuss most frequently?'"
+                }
+            },
+            "required": ["question"]
+        }
+    }
+}
+
 # API Endpoints
 @app.get("/")
 async def root():
@@ -286,10 +342,11 @@ async def chat(request: ChatRequest):
         messages.append({"role": "user", "content": user_message})
         
         completion = openai_client.chat.completions.create(
-            model="gpt-4o",
+            model="gpt-4.1",
             messages=messages,
             temperature=0.7,
-            max_tokens=1000
+            max_tokens=1000,
+            tools=[QUERY_TOOL_DEFINITION],  # Enable the query tool if needed. Since this demo is limited in data scope, we will not use it.
         )
         
         assistant_response = completion.choices[0].message.content

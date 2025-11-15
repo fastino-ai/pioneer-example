@@ -3,6 +3,205 @@
   display: flex;
   flex-direction: column;
   background: #ffffff;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark Mode Styles */
+.app.dark-mode {
+  background: #1a1a1a;
+  color: #e5e5e5;
+}
+
+.app.dark-mode .header {
+  background: #1a1a1a;
+  border-bottom-color: #2a2a2a;
+}
+
+.app.dark-mode .header-content h1,
+.app.dark-mode .subtitle strong {
+  color: #e5e5e5;
+}
+
+.app.dark-mode .subtitle {
+  color: #a0a0a0;
+}
+
+.app.dark-mode .clear-btn,
+.app.dark-mode .logout-btn,
+.app.dark-mode .theme-toggle {
+  background: transparent;
+  color: #e5e5e5;
+  border-color: #3a3a3a;
+}
+
+.app.dark-mode .clear-btn:hover:not(:disabled),
+.app.dark-mode .logout-btn:hover,
+.app.dark-mode .theme-toggle:hover {
+  background: #2a2a2a;
+}
+
+.app.dark-mode .welcome-message h2,
+.app.dark-mode .start-prompt {
+  color: #e5e5e5;
+}
+
+.app.dark-mode .welcome-message > p {
+  color: #a0a0a0;
+}
+
+.app.dark-mode .feature {
+  background: #2a2a2a;
+  border-color: #3a3a3a;
+}
+
+.app.dark-mode .feature strong {
+  color: #e5e5e5;
+}
+
+.app.dark-mode .feature p {
+  color: #a0a0a0;
+}
+
+.app.dark-mode .message.user {
+  background: #2a2a2a;
+}
+
+.app.dark-mode .message.user .message-header,
+.app.dark-mode .message.user .message-content {
+  color: #e5e5e5;
+}
+
+.app.dark-mode .message.assistant .message-header {
+  color: #e5e5e5;
+}
+
+.app.dark-mode .message-content {
+  color: #e5e5e5;
+}
+
+.app.dark-mode .typing-indicator span {
+  background: #e5e5e5;
+}
+
+.app.dark-mode .input-form {
+  background: #1a1a1a;
+  border-top-color: #2a2a2a;
+}
+
+.app.dark-mode .message-input {
+  background: #2a2a2a;
+  border-color: #3a3a3a;
+  color: #e5e5e5;
+}
+
+.app.dark-mode .message-input:focus {
+  border-color: #e5e5e5;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.app.dark-mode .message-input:disabled {
+  background: #1a1a1a;
+}
+
+.app.dark-mode .message-input::placeholder {
+  color: #666;
+}
+
+.app.dark-mode .send-button {
+  background: #e5e5e5;
+  color: #1a1a1a;
+}
+
+.app.dark-mode .send-button:hover:not(:disabled) {
+  background: #ffffff;
+}
+
+.app.dark-mode .footer {
+  background: #1a1a1a;
+  border-top-color: #2a2a2a;
+  color: #a0a0a0;
+}
+
+.app.dark-mode .footer a {
+  color: #e5e5e5;
+}
+
+.app.dark-mode .footer-note {
+  color: #666;
+}
+
+.app.dark-mode .registration-container {
+  background: #1a1a1a;
+}
+
+.app.dark-mode .registration-header h1 {
+  color: #e5e5e5;
+}
+
+.app.dark-mode .registration-subtitle {
+  color: #a0a0a0;
+}
+
+.app.dark-mode .feature-item {
+  background: transparent;
+}
+
+.app.dark-mode .feature-item:hover {
+  background: #2a2a2a;
+}
+
+.app.dark-mode .feature-item strong {
+  color: #e5e5e5;
+}
+
+.app.dark-mode .feature-item p {
+  color: #a0a0a0;
+}
+
+.app.dark-mode .feature-item strong::after {
+  color: #3a3a3a;
+}
+
+.app.dark-mode .registration-form label {
+  color: #e5e5e5;
+}
+
+.app.dark-mode .email-input {
+  background: #2a2a2a;
+  border-color: #3a3a3a;
+  color: #e5e5e5;
+}
+
+.app.dark-mode .email-input:focus {
+  border-color: #e5e5e5;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+  background: #2a2a2a;
+}
+
+.app.dark-mode .email-input:disabled {
+  background: #1a1a1a;
+}
+
+.app.dark-mode .register-button {
+  background: #e5e5e5;
+  color: #1a1a1a;
+}
+
+.app.dark-mode .register-button:hover:not(:disabled) {
+  background: #ffffff;
+}
+
+.app.dark-mode .registration-note {
+  background: #2a2a2a;
+  border-color: #3a3a3a;
+}
+
+.app.dark-mode .registration-note p {
+  color: #a0a0a0;
+}
+
+.app.dark-mode .registration-note strong {
+  color: #e5e5e5;
 }
 
 .header {
@@ -41,6 +240,7 @@
   align-items: center;
 }
 
+.theme-toggle,
 .clear-btn,
 .logout-btn {
   background: transparent;
@@ -52,11 +252,22 @@
   font-weight: 500;
   font-size: 0.875rem;
   transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
+.theme-toggle:hover,
 .clear-btn:hover:not(:disabled),
 .logout-btn:hover {
   background: #f7f7f8;
+}
+
+.registration-container .theme-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 100;
 }
 
 .clear-btn:disabled {
@@ -203,6 +414,7 @@
   align-items: center;
   margin-bottom: 0.5rem;
   font-size: 0.875rem;
+  gap: 2rem;
 }
 
 .message.user .message-header {
