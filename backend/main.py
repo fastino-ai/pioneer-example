@@ -164,24 +164,26 @@ async def ingest_conversation(user_id: str, messages: List[Dict]):
                 }
                 formatted_messages.append(formatted_msg)
             
+            payload = {
+                "user_id": user_id,
+                "source": "chat_app",
+                "message_history": formatted_messages,
+                "options": {"dedupe": True}
+            }
+            
             response = await client.post(
                 f"{PIONEER_BASE_URL}/ingest",
                 headers=get_pioneer_headers(),
-                json={
-                    "user_id": user_id,
-                    "source": "chat_app",
-                    "message_history": formatted_messages,
-                    "options": {"dedupe": True}
-                },
+                json=payload,
                 timeout=30.0
             )
             
-            if response.status_code != 200:
-                print(f"[ERROR] Failed to ingest conversation. Status: {response.status_code}, Response: {response.text}")
+            if response.status_code not in [200, 202]:
+                print(f"[ERROR] Failed to ingest conversation. Status: {response.status_code}, Response: {response.text}", flush=True)
             else:
-                print(f"[SUCCESS] Conversation ingested successfully")
+                print(f"[SUCCESS] Conversation ingested successfully. Response: {response.text}", flush=True)
         except Exception as e:
-            print(f"[ERROR] Exception ingesting conversation: {e}")
+            print(f"[ERROR] Exception ingesting conversation: {e}", flush=True)
 
 async def query_user_knowledge(user_id: str, question: str, use_cache: bool = True) -> Optional[str]:
     """
@@ -346,7 +348,7 @@ async def chat(request: ChatRequest):
             messages=messages,
             temperature=0.7,
             max_tokens=1000,
-            tools=[QUERY_TOOL_DEFINITION],  # Enable the query tool if needed. Since this demo is limited in data scope, we will not use it.
+            # tools=[QUERY_TOOL_DEFINITION],  # Enable the query tool if needed. Since this demo is limited in data scope, we will not use it.
         )
         
         assistant_response = completion.choices[0].message.content
