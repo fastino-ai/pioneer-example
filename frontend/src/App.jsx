@@ -14,13 +14,15 @@ function App() {
   const [emailInput, setEmailInput] = useState('');
   const [isRegistering, setIsRegistering] = useState(false);
   const [registrationError, setRegistrationError] = useState(null);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const messagesEndRef = useRef(null);
 
-  // Load user from localStorage on mount
+  // Load user and theme from localStorage on mount
   useEffect(() => {
     const storedEmail = localStorage.getItem('pioneer_user_email');
     const storedUserId = localStorage.getItem('pioneer_user_id');
     const storedTimestamp = localStorage.getItem('pioneer_user_timestamp');
+    const storedTheme = localStorage.getItem('pioneer_theme');
     
     if (storedEmail && storedUserId && storedTimestamp) {
       // Check if stored data is less than 30 days old
@@ -36,6 +38,11 @@ function App() {
         localStorage.removeItem('pioneer_user_id');
         localStorage.removeItem('pioneer_user_timestamp');
       }
+    }
+    
+    // Load theme preference
+    if (storedTheme === 'dark') {
+      setIsDarkMode(true);
     }
   }, []);
 
@@ -166,7 +173,7 @@ function App() {
     setUserId(null);
     setEmailInput('');
     
-    // Clear localStorage
+    // Clear localStorage (but keep theme preference)
     localStorage.removeItem('pioneer_user_email');
     localStorage.removeItem('pioneer_user_id');
     localStorage.removeItem('pioneer_user_timestamp');
@@ -174,11 +181,24 @@ function App() {
     console.log('User logged out, cleared all session data');
   };
 
+  const toggleDarkMode = () => {
+    const newMode = !isDarkMode;
+    setIsDarkMode(newMode);
+    localStorage.setItem('pioneer_theme', newMode ? 'dark' : 'light');
+  };
+
   // Show registration screen if user hasn't registered
   if (!userEmail || !userId) {
     return (
-      <div className="app">
+      <div className={`app ${isDarkMode ? 'dark-mode' : ''}`}>
         <div className="registration-container">
+          <button 
+            className="theme-toggle"
+            onClick={toggleDarkMode}
+            aria-label="Toggle dark mode"
+          >
+            {isDarkMode ? '☀️' : '🌙'}
+          </button>
           <div className="registration-card">
             <div className="registration-header">
               <h1>Welcome to Pioneer Chat</h1>
@@ -253,7 +273,7 @@ function App() {
   }
 
   return (
-    <div className="app">
+    <div className={`app ${isDarkMode ? 'dark-mode' : ''}`}>
       <header className="header">
         <div className="header-content">
           <h1>Pioneer Chat</h1>
@@ -262,6 +282,13 @@ function App() {
           </p>
         </div>
         <div className="header-actions">
+          <button 
+            className="theme-toggle"
+            onClick={toggleDarkMode}
+            aria-label="Toggle dark mode"
+          >
+            {isDarkMode ? '☀️' : '🌙'}
+          </button>
           <button 
             className="clear-btn"
             onClick={clearChat}
