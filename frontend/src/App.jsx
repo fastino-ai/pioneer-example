@@ -197,7 +197,7 @@ function App() {
             onClick={toggleDarkMode}
             aria-label="Toggle dark mode"
           >
-            {isDarkMode ? '☀️' : '🌙'}
+            {isDarkMode ? 'Toggle Theme' : 'Toggle Theme'}
           </button>
           <div className="registration-card">
             <div className="registration-header">
@@ -260,11 +260,11 @@ function App() {
 
           <footer className="footer">
             <p>
-              Built with <a href="https://api.fastino.ai" target="_blank" rel="noopener noreferrer">Pioneer API</a> 
+              Built with <a href="https://fastino.ai" target="_blank" rel="noopener noreferrer">Pioneer API</a> 
               {' '} + <a href="https://openai.com" target="_blank" rel="noopener noreferrer">OpenAI GPT-4o</a>
             </p>
             <p className="footer-note">
-              Open source example • <a href="https://github.com" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+              Open source example • <a href="https://github.com/fastino-ai/pioneer-example" target="_blank" rel="noopener noreferrer">View on GitHub</a>
             </p>
           </footer>
         </div>
@@ -287,7 +287,7 @@ function App() {
             onClick={toggleDarkMode}
             aria-label="Toggle dark mode"
           >
-            {isDarkMode ? '☀️' : '🌙'}
+            {isDarkMode ? 'Toggle Theme' : 'Toggle Theme'}
           </button>
           <button 
             className="clear-btn"
@@ -390,11 +390,11 @@ function App() {
 
       <footer className="footer">
         <p>
-          Built with <a href="https://api.fastino.ai" target="_blank" rel="noopener noreferrer">Pioneer API</a> 
+          Built with <a href="https://fastino.ai" target="_blank" rel="noopener noreferrer">Pioneer API</a> 
           {' '} + <a href="https://openai.com" target="_blank" rel="noopener noreferrer">OpenAI GPT-4o</a>
         </p>
         <p className="footer-note">
-          Open source example • <a href="https://github.com" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+          Open source example • <a href="https://github.com/fastino-ai/pioneer-example" target="_blank" rel="noopener noreferrer">View on GitHub</a>
         </p>
       </footer>
     </div>
