@@ -15,6 +15,8 @@ function App() {
   const [isRegistering, setIsRegistering] = useState(false);
   const [registrationError, setRegistrationError] = useState(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [showManualEntry, setShowManualEntry] = useState(false);
+  const [manualUserId, setManualUserId] = useState('');
   const messagesEndRef = useRef(null);
 
   // Load user and theme from localStorage on mount
@@ -111,6 +113,37 @@ function App() {
     }
   };
 
+  const handleManualUserIdSubmit = (e) => {
+    e.preventDefault();
+    
+    if (!emailInput.trim() || !manualUserId.trim()) {
+      setRegistrationError('Please enter both email and user ID');
+      return;
+    }
+
+    setRegistrationError(null);
+    const trimmedEmail = emailInput.trim();
+    const trimmedUserId = manualUserId.trim();
+
+    // Store in state
+    setUserEmail(trimmedEmail);
+    setUserId(trimmedUserId);
+    
+    // Store in localStorage
+    localStorage.setItem('pioneer_user_email', trimmedEmail);
+    localStorage.setItem('pioneer_user_id', trimmedUserId);
+    localStorage.setItem('pioneer_user_timestamp', Date.now().toString());
+    
+    console.log('User logged in with manual ID:', {
+      email: trimmedEmail,
+      user_id: trimmedUserId
+    });
+    
+    // Reset manual entry state
+    setShowManualEntry(false);
+    setManualUserId('');
+  };
+
   const sendMessage = async (e) => {
     e.preventDefault();
     
@@ -192,13 +225,23 @@ function App() {
     return (
       <div className={`app ${isDarkMode ? 'dark-mode' : ''}`}>
         <div className="registration-container">
-          <button 
-            className="theme-toggle"
-            onClick={toggleDarkMode}
-            aria-label="Toggle dark mode"
-          >
-            {isDarkMode ? 'Toggle Theme' : 'Toggle Theme'}
-          </button>
+          <div className="registration-controls">
+            <button 
+              className="settings-cog"
+              onClick={() => setShowManualEntry(!showManualEntry)}
+              aria-label="Manual user ID entry"
+              title="Already have a user ID?"
+            >
+              ⚙️
+            </button>
+            <button 
+              className="theme-toggle"
+              onClick={toggleDarkMode}
+              aria-label="Toggle dark mode"
+            >
+              {isDarkMode ? 'Toggle Theme' : 'Toggle Theme'}
+            </button>
+          </div>
           <div className="registration-card">
             <div className="registration-header">
               <h1>Welcome to Pioneer Chat</h1>
@@ -223,31 +266,78 @@ function App() {
                 </div>
               </div>
 
-              <form onSubmit={registerUser} className="registration-form">
-                <label htmlFor="email">Enter your email to get started</label>
-                <input
-                  id="email"
-                  type="email"
-                  value={emailInput}
-                  onChange={(e) => setEmailInput(e.target.value)}
-                  placeholder="your.email@example.com"
-                  disabled={isRegistering}
-                  className="email-input"
-                  required
-                />
-                {registrationError && (
-                  <div className="error-message">
-                    {registrationError}
-                  </div>
-                )}
-                <button 
-                  type="submit" 
-                  disabled={isRegistering || !emailInput.trim()}
-                  className="register-button"
-                >
-                  {isRegistering ? 'Registering...' : 'Start Chatting'}
-                </button>
-              </form>
+              {!showManualEntry ? (
+                <form onSubmit={registerUser} className="registration-form">
+                  <label htmlFor="email">Enter your email to get started</label>
+                  <input
+                    id="email"
+                    type="email"
+                    value={emailInput}
+                    onChange={(e) => setEmailInput(e.target.value)}
+                    placeholder="your.email@example.com"
+                    disabled={isRegistering}
+                    className="email-input"
+                    required
+                  />
+                  {registrationError && (
+                    <div className="error-message">
+                      {registrationError}
+                    </div>
+                  )}
+                  <button 
+                    type="submit" 
+                    disabled={isRegistering || !emailInput.trim()}
+                    className="register-button"
+                  >
+                    {isRegistering ? 'Registering...' : 'Start Chatting'}
+                  </button>
+                </form>
+              ) : (
+                <form onSubmit={handleManualUserIdSubmit} className="registration-form manual-entry">
+                  <label htmlFor="email-manual">Enter your email and user ID</label>
+                  <input
+                    id="email-manual"
+                    type="email"
+                    value={emailInput}
+                    onChange={(e) => setEmailInput(e.target.value)}
+                    placeholder="your.email@example.com"
+                    className="email-input"
+                    required
+                  />
+                  <input
+                    id="user-id-manual"
+                    type="text"
+                    value={manualUserId}
+                    onChange={(e) => setManualUserId(e.target.value)}
+                    placeholder="Enter your user ID"
+                    className="email-input"
+                    required
+                  />
+                  {registrationError && (
+                    <div className="error-message">
+                      {registrationError}
+                    </div>
+                  )}
+                  <button 
+                    type="submit" 
+                    disabled={!emailInput.trim() || !manualUserId.trim()}
+                    className="register-button"
+                  >
+                    Continue with User ID
+                  </button>
+                  <button 
+                    type="button"
+                    onClick={() => {
+                      setShowManualEntry(false);
+                      setManualUserId('');
+                      setRegistrationError(null);
+                    }}
+                    className="cancel-button"
+                  >
+                    Back to Registration
+                  </button>
+                </form>
+              )}
 
               <div className="registration-note">
                 <p>
@@ -279,6 +369,9 @@ function App() {
           <h1>Pioneer Chat</h1>
           <p className="subtitle">
             Logged in as: <strong>{userEmail}</strong>
+          </p>
+          <p className="user-id-display">
+            User ID: <span className="user-id-value">{userId}</span>
           </p>
         </div>
         <div className="header-actions">
